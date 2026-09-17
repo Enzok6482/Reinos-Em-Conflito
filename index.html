@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reinos em Conflito</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         INÍCIO
+    ========================== -->
+
+    <section id="telaInicio" class="tela ativa">
+
+        <div class="inicio-container">
+
+            <div class="logo-coroa">♛</div>
+
+            <h1>Reinos em Conflito</h1>
+
+            <p>Absolutismo e Mercantilismo</p>
+
+            <div class="menu">
+
+                <button onclick="mostrarRegras()">
+                    📜 Regras
+                </button>
+
+                <button onclick="mostrarEscolhaReino()">
+                    👑 Qual reino você quer?
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REGRAS
+    ========================== -->
+
+    <section id="telaRegras" class="tela">
+
+        <div class="painel">
+
+            <h1>📜 Regras</h1>
+
+            <div class="regras">
+
+                <p>👑 Existem dois reinos: Inglaterra e França.</p>
+
+                <p>❤️ Cada reino começa com 10 pontos de resistência.</p>
+
+                <p>⚔️ Cada reino começa com 300 soldados.</p>
+
+                <p>🪙 Cada reino começa com 8 barras de riqueza.</p>
+
+                <p>🎲 Role o dado para avançar pelo tabuleiro.</p>
+
+                <p>🍀 Algumas casas possuem cartas de Sorte ou Azar.</p>
+
+                <p>👑 Algumas casas possuem cartas de Decisão.</p>
+
+                <p>⚔️ Algumas casas iniciam uma guerra.</p>
+
+                <p>💀 Se sua resistência chegar a 0, seu reino perde.</p>
+
+                <p>🏆 O último reino com resistência vence.</p>
+
+            </div>
+
+            <button class="botao-voltar" onclick="voltarInicio()">
+                ⬅ Voltar ao início
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ESCOLHA DO REINO
+    ========================== -->
+
+    <section id="telaEscolhaReino" class="tela">
+
+        <div class="painel">
+
+            <h1>👑 Escolha seu reino</h1>
+
+            <p>Qual reino você deseja comandar?</p>
+
+            <div class="reinos">
+
+                <button
+                    class="botao-reino inglaterra"
+                    onclick="escolherReino('ingles')"
+                >
+
+                    <span>🇬🇧</span>
+
+                    <strong>
+                        Reino da Inglaterra
+                    </strong>
+
+                    <small>
+                        Comande a Inglaterra
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="botao-reino franca"
+                    onclick="escolherReino('frances')"
+                >
+
+                    <span>🇫🇷</span>
+
+                    <strong>
+                        Reino da França
+                    </strong>
+
+                    <small>
+                        Comande a França
+                    </small>
+
+                </button>
+
+            </div>
+
+            <button class="botao-voltar" onclick="voltarInicio()">
+                ⬅ Voltar ao início
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         JOGO
+    ========================== -->
+
+    <section id="telaJogo" class="tela">
+
+        <header class="topo-jogo">
+
+            <div>
+                <h1 id="nomeReino">Reino</h1>
+                <p id="mensagemTurno">
+                    Seu reino está pronto!
+                </p>
+            </div>
+
+            <button
+                class="botao-inicio"
+                onclick="voltarInicio()"
+            >
+                🏠 Início
+            </button>
+
+        </header>
+
+
+        <!-- STATUS -->
+
+        <div class="status">
+
+            <div class="status-item">
+
+                <span>❤️</span>
+
+                <strong>Resistência</strong>
+
+                <span id="resistencia">10</span>
+
+                <button
+                    class="botao-dano"
+                    onclick="diminuirResistencia()"
+                >
+                    ➖
+                </button>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>⚔️</span>
+
+                <strong>Soldados</strong>
+
+                <span id="soldados">300</span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>🪙</span>
+
+                <strong>Ouro</strong>
+
+                <span id="ouro">0</span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>🥈</span>
+
+                <strong>Prata</strong>
+
+                <span id="prata">0</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- TABULEIRO -->
+
+        <div class="tabuleiro-area">
+
+            <div id="tabuleiro" class="tabuleiro"></div>
+
+            <div class="controle-dado">
+
+                <div id="resultadoDado" class="resultado-dado">
+                    🎲 —
+                </div>
+
+                <button
+                    id="botaoDado"
+                    class="botao-dado"
+                    onclick="rolarDado()"
+                >
+                    🎲 Rolar dado
+                </button>
+
+            </div>
+
+            <div id="mensagemCasa" class="mensagem-casa"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CARTA
+    ========================== -->
+
+    <section id="telaCarta" class="tela">
+
+        <div class="carta-container">
+
+            <div id="carta" class="carta">
+
+                <div id="cartaTipo" class="carta-tipo">
+                    CARTA
+                </div>
+
+                <h1 id="cartaTitulo">
+                    Título
+                </h1>
+
+                <p id="cartaTexto">
+                    Texto
+                </p>
+
+
+                <!-- OPÇÕES DE DECISÃO -->
+
+                <div
+                    id="opcoesDecisao"
+                    class="opcoes-decisao"
+                ></div>
+
+
+                <!-- BOTÃO OK -->
+
+                <button
+                    id="botaoOK"
+                    class="botao-ok"
+                    onclick="confirmarCarta()"
+                >
+                    OK
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         GUERRA
+    ========================== -->
+
+    <section id="telaGuerra" class="tela">
+
+        <div class="guerra-container">
+
+            <h1>⚔️ Campo de Batalha</h1>
+
+            <p>
+                Os dois reinos estão em guerra!
+            </p>
+
+
+            <div class="guerra-reinos">
+
+
+                <!-- MEU REINO -->
+
+                <div
+                    id="guerraMeuReino"
+                    class="lado-guerra"
+                >
+
+                    <div class="icone-guerra">
+                        🏰
+                    </div>
+
+                    <h2 id="nomeGuerraMeuReino">
+                        Seu Reino
+                    </h2>
+
+                    <p>
+                        ⚔️ Soldados:
+                        <span id="soldadosGuerraMeu">
+                            300
+                        </span>
+                    </p>
+
+                    <div
+                        id="dadoMeu"
+                        class="resultado-guerra"
+                    >
+                        —
+                    </div>
+
+                    <button
+                        onclick="rolarMeuDado()"
+                        id="botaoMeuDado"
+                    >
+                        🎲 Rolar meu dado
+                    </button>
+
+                </div>
+
+
+                <div class="versus">
+                    VS
+                </div>
+
+
+                <!-- INIMIGO -->
+
+                <div
+                    id="guerraInimigo"
+                    class="lado-guerra inimigo"
+                >
+
+                    <div class="icone-guerra">
+                        🏰
+                    </div>
+
+                    <h2 id="nomeGuerraInimigo">
+                        Reino Inimigo
+                    </h2>
+
+                    <p>
+                        ⚔️ Soldados:
+                        <span id="soldadosGuerraInimigo">
+                            300
+                        </span>
+                    </p>
+
+                    <div
+                        id="dadoInimigo"
+                        class="resultado-guerra"
+                    >
+                        —
+                    </div>
+
+                    <button
+                        onclick="rolarDadoInimigo()"
+                        id="botaoInimigoDado"
+                    >
+                        🎲 Rolar dado inimigo
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="placarGuerra"
+                class="placar-guerra"
+            >
+                Rodada 1 de 3
+            </div>
+
+
+            <div
+                id="mensagemGuerra"
+                class="mensagem-guerra"
+            >
+                Role os dados para começar.
+            </div>
+
+<div
+    id="resultadoDano"
+    class="mensagem-guerra"
+></div>
+            <div class="acoes-guerra">
+
+                <button
+                    id="botaoProximaRodada"
+                    onclick="proximaRodada()"
+                    disabled
+                >
+                    ➡ Próxima rodada
+                </button>
+
+
+                <button
+                    id="botaoDanoGuerra"
+                    onclick="rolarDano()"
+                    disabled
+                >
+                    ⚔️ Rolar dano
+                </button>
+
+            </div>
+
+
+            <button
+                class="botao-voltar"
+                onclick="voltarTabuleiro()"
+            >
+                ⬅ Voltar ao tabuleiro
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         DERROTA
+    ========================== -->
+
+    <section id="telaDerrota" class="tela">
+
+        <div class="derrota-container">
+
+            <div class="derrota-icone">
+                💀
+            </div>
+
+            <h1>
+                Seu Reino Perdeu
+            </h1>
+
+            <h2>
+                Seu Reino Perdeu Todos Os Pontos De Resistência!
+            </h2>
+
+            <p id="textoVencedor">
+                O reino inimigo venceu a batalha.
+            </p>
+
+            <button
+                class="botao-reiniciar"
+                onclick="voltarInicio()"
+            >
+                🏠 Voltar ao início
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
